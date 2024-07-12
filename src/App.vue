@@ -42,53 +42,55 @@ const params = reactive({
   date: computed(() => formatDate(date.value))
 })
 const getAllBranch = async () => {
-  const getAllBranchReq = new Request(`http://localhost:5000/getAllBranch`)
+  const getAllBranchReq = new Request(`https://yogayogaapi-claras-projects-4138278a.vercel.app/getAllBranch`)
   await fetch(getAllBranchReq).then((response) => {
     if (!response.ok) {
       throw new Error('無法取得分店資訊')
     }
     return response.json()
   }).then((res) => {
+    res = JSON.parse(res)
     branchOptions.value = res.data
-  })
-  branchOptions.value.forEach((item) => {
-    switch (item.branch_name) {
+    branchOptions.value.forEach((item) => {
+      switch (item.branch_name) {
 
-      case '好時光女生運動樂園 Café de GTFP':
-        item.nickName = '南京復興'
-        break;
-      case '好時光女生運動樂園 The GTFP House':
-        item.nickName = '古亭'
-        break;
-      case '好時光女生運動樂園 331 Boxing':
-        item.nickName = '松江南京'
-        break;
-      case '好時光女生運動樂園 the GTFP Ohana':
-        item.nickName = '大安'
-        break;
-      case '好時光女生運動樂園 The GTFP Lite':
-        item.nickName = '江翠一館'
-        break;
-      case '好時光女生運動樂園 The GTFP Lucky7':
-        item.nickName = '民權'
-        break;
-      case '好時光女生運動樂園 The GTFP Shaka':
-        item.nickName = '西湖'
-        break;
-      case '好時光女生運動樂園 The GTFP Bingo':
-        item.nickName = '中和'
-        break;
-      case ' 好時光女生運動樂園 The GTFP Hope':
-        item.nickName = '新莊'
-        break;
-      case '好時光女生運動樂園The GTFP Plus':
-        item.nickName = '江翠二館'
-        break;
-    }
+        case '好時光女生運動樂園 Café de GTFP':
+          item.nickName = '南京復興'
+          break;
+        case '好時光女生運動樂園 The GTFP House':
+          item.nickName = '古亭'
+          break;
+        case '好時光女生運動樂園 331 Boxing':
+          item.nickName = '松江南京'
+          break;
+        case '好時光女生運動樂園 the GTFP Ohana':
+          item.nickName = '大安'
+          break;
+        case '好時光女生運動樂園 The GTFP Lite':
+          item.nickName = '江翠一館'
+          break;
+        case '好時光女生運動樂園 The GTFP Lucky7':
+          item.nickName = '民權'
+          break;
+        case '好時光女生運動樂園 The GTFP Shaka':
+          item.nickName = '西湖'
+          break;
+        case '好時光女生運動樂園 The GTFP Bingo':
+          item.nickName = '中和'
+          break;
+        case ' 好時光女生運動樂園 The GTFP Hope':
+          item.nickName = '新莊'
+          break;
+        case '好時光女生運動樂園The GTFP Plus':
+          item.nickName = '江翠二館'
+          break;
+      }
+    })
+
   })
 }
 const getList = async () => {
-  const getFilterDatReq = new Request(`http://localhost:5000/getFilterData?branchId=${params.branchId}&page=${params.page}&view=${params.view}&date=${params.date}`, { method: 'GET' })
+  const getFilterDatReq = new Request(`https://yogayogaapi-claras-projects-4138278a.vercel.app/getFilterData?branchId=${params.branchId}&page=${params.page}&view=${params.view}&date=${params.date}`, { method: 'GET' })
   await fetch(getFilterDatReq)
     .then((response) => {
       if (!response.ok) {
@@ -97,6 +99,7 @@ const getList = async () => {
       return response.json()
     })
     .then((res) => {
+      res = JSON.parse(res)
       data.value = res.pageData
     })
     .catch((err) => {
